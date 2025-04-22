@@ -20,6 +20,8 @@ class WeatherController extends GetxController{
     try {
    Response response = await dio.get(uri);
    if(response.statusCode ==200){
+    await Future.delayed(Duration(seconds: 1)); // just for testing
+
     weatherData.value = Welcome.fromJson(response.data);
    }else{
     errorMessage.value = 'city not found ';
