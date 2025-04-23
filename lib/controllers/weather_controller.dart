@@ -10,12 +10,12 @@ class WeatherController extends GetxController{
 
   final dio = Dio();
   String city  = "beirut";
-
+  
  void GetWeatherData(String city) async {
     isLoading.value = true ;
     errorMessage.value ='' ;
 
-    String apikey = "";
+    String apikey = "410e9c9d1c980e77dce624c4fa6369fd";
     String uri  = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apikey";
     try {
    Response response = await dio.get(uri);
