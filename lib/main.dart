@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app_getx2/controllers/weather_controller.dart';
+import 'package:weather_app_getx2/view/forecast_controller.dart';
 import 'view/weather_screen.dart';
 
 void main() {
   Get.put(WeatherController()); 
+  Get.put(ForecastController());
   runApp(MyApp()); // <-- You forgot this line
 }
 

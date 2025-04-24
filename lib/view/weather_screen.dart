@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app_getx2/controllers/weather_controller.dart';
 import 'package:weather_app_getx2/models/weather_model.dart';
+import 'package:weather_app_getx2/view/forecast_controller.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -12,20 +13,22 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   final WeatherController weatherController = Get.put(WeatherController());
+  final ForecastController forecastController = Get.put(ForecastController());
   
 
   @override
   void initState() {
     super.initState();
     weatherController.GetWeatherData(weatherController.city);
+    forecastController.GetForecastData(forecastController.city);
   }
 
   Widget build(BuildContext context) {
-      String iconCode = weatherController.weatherData.value?.weather[0].icon ?? "01d" ;
-      String iconUrl = "https://openweathermap.org/img/wn/$iconCode@2x.png";
+      String iconCodeWeather = weatherController.weatherData.value?.weather[0].icon ?? "01d" ;
+      String iconUrl = "https://openweathermap.org/img/wn/$iconCodeWeather@2x.png";
     return Scaffold(
       backgroundColor: const Color(0xFF3A79F7), // Background like your image
-      appBar: AppBar(title: Text("hello")),
+      appBar: AppBar(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: Obx(() {
