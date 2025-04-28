@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:weather_app_getx2/controllers/weather_controller.dart';
 import 'package:weather_app_getx2/models/weather_model.dart';
 import 'package:weather_app_getx2/view/forecast_controller.dart';
+import 'package:intl/intl.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -27,8 +28,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
   Widget build(BuildContext context) {
     String iconCodeWeather =
         weatherController.weatherData.value?.weather[0].icon ?? "01d";
-    String iconCodeForecast =
-        forecastController.ForecastData.value?.list[0].weather[0].icon ?? "01d";
 
     String iconUrl =
         "https://openweathermap.org/img/wn/$iconCodeWeather@2x.png";
@@ -36,10 +35,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
     return Scaffold(
       backgroundColor: const Color(
         0xFF3A79F7,
-      ), // Background color like your image
-      appBar: AppBar(),
+      ),
+      appBar: AppBar(
+   backgroundColor: const Color(
+        0xFF3A79F7,)
+
+      ),
       body: Padding(
-        padding: EdgeInsets.all(20), // Apply padding of 20 on all sides
+        padding: EdgeInsets.symmetric(horizontal: 20), 
         child: Column(
           children: [
             Obx(() {
@@ -139,13 +142,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     itemBuilder: (context, index) {
                       final Item =
                           forecastController.ForecastData.value!.list[index];
-                      final dayName =
-                          " ${index + 1}"; 
-                      final icon =
-                          Icons
-                              .wb_sunny; // Replace this with an actual icon based on the forecast
+
+                      // get the icon
+                      String iconCodeForecast =
+                          Item.weather.isNotEmpty
+                              ? Item.weather[0].icon ?? "01d"
+                              : "01d";
+                      String iconUrlForecast =
+                          "https://openweathermap.org/img/wn/$iconCodeForecast@2x.png";
+
                       final temperature = (Item.main?.temp ?? 273.15)
                           .toStringAsFixed(1);
+                      final DateTime? date = Item.dtTxt;
+                      final String dayName =
+                          date != null
+                              ? DateFormat('EEEE').format(date)
+                              : "Day ${index + 2}";
 
                       return ListTile(
                         contentPadding: EdgeInsets.symmetric(
@@ -157,20 +169,25 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           children: [
                             Row(
                               children: [
-                                Icon(icon, color: Colors.orange), // Icon
-                                SizedBox(
-                                  width: 8,
-                                ), // Space between icon and text
+                                Image.network(
+                                  iconUrlForecast,
+                                  width: 40,
+                                  height: 40,
+                                  errorBuilder:
+                                      (context, error, stackTrace) =>
+                                          Icon(Icons.error),
+                                ),
+                                SizedBox(width: 8),
                                 Text(
-                                  dayName, // Day name
-                                  style: TextStyle(color: Colors.black),
+                                  dayName,
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ],
                             ),
                             Text(
-                              "$temperature °C", // Temperature
+                              "$temperature °C",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
