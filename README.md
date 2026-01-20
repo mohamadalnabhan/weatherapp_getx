@@ -50,32 +50,6 @@ State is managed using GetX with reactive variables (`Rx`) and `Obx` widgets for
 
 ---
 
-## 🚀 Getting Started
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-username/weather-app-getx.git
-```
-
-2. Install dependencies:
-
-```bash
-flutter pub get
-```
-
-3. Add your API key:
-
-* Create a `.env` file or update the constants file
-* Insert your Weather API key
-
-4. Run the app:
-
-```bash
-flutter run
-```
-
----
 
 ## 📸 Screenshots
 
